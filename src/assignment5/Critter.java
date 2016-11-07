@@ -54,7 +54,50 @@ public abstract class Critter {
 		myPackage = Critter.class.getPackage().toString().split(" ")[1];
 	}
 	
-	protected String look(int direction, boolean steps) {return "";}
+	protected String look(int direction, boolean steps) 
+	{
+		int num_steps = 1;
+		int vertical = 0;
+		int horizontal = 0;
+		if(steps)
+		{
+			num_steps++;
+		}
+
+		if(direction == 0 || direction == 1 || direction == 7)
+		{
+			horizontal = num_steps;
+		}
+		if(direction == 1 || direction == 2 || direction == 3)
+		{
+			vertical = -1 * num_steps;
+		}
+		if(direction == 3 || direction == 4 || direction == 5)
+		{
+			horizontal = -1 * num_steps;
+		}
+		if(direction == 5 || direction == 6 || direction == 7)
+		{
+			horizontal = num_steps;
+		}
+
+		int look_x = this.x_coord + horizontal;
+		look_x = Math.floorMod(look_x, Params.world_width);
+		int look_y = this.y_coord + vertical;
+		look_y = Math.floorMod(look_y, Params.world_width);
+
+		this.energy -= Params.look_energy_cost;
+
+
+		for(Critter c : population)
+		{
+			if(c.x_coord == look_x && c.y_coord == look_y)
+			{
+				return c.toString();
+			}
+		}
+		return null;
+	}
 	
 	/* rest is unchanged from Project 4 */
 	
@@ -77,42 +120,341 @@ public abstract class Critter {
 	
 	private int x_coord;
 	private int y_coord;
+	private boolean isFighting;
+	private boolean isDead;
+	private boolean hasMoved;
 	
-	protected final void walk(int direction) {}
+	/**
+	 * makes critter walk 1 step in any of 8 directions
+	 * @param direction indicates which direction to move
+	 * following are helper functions to walk in a given direction
+	 */
+	protected final void walk(int direction) {
+		this.energy -= Params.walk_energy_cost;
+		
+		if(this.hasMoved == true){
+			return;
+		}
+		switch(direction)
+		{
+			case0:
+				this.x_coord+=1;
+				break;
+			case1:
+				this.x_coord+=1;
+				this.y_coord-=1;
+				break;
+			case2:
+				this.y_coord-=1;
+				break;
+			case3:
+				this.x_coord-=1;
+				this.y_coord-=1;
+				break;
+			case4:
+				this.x_coord-=1;
+				break;
+			case5:
+				this.x_coord-=1;
+				this.y_coord+=1;
+				break;
+			case6:
+				this.y_coord+=1;
+				break;
+			case7:
+				this.x_coord+=1;
+				this.y_coord+=1;
+				break;
+		}
+
+		this.x_coord = Math.floorMod(this.x_coord, Params.world_width);
+		this.y_coord = Math.floorMod(this.y_coord, Params.word_height);
+		this.hasMoved = true;
+	}
+	/**
+	 * makes critter run 2 steps in any of 8 directions
+	 * @param direction determines direction in which to travel
+	 * following are helper functions to run in a given direction
+	 */
+	protected final void run(int direction) 
+	{
+
+		this.energy -= Params.run_energy_cost;
+		if(this.hasMoved == true){
+			return;
+		}
+		switch(direction)
+		{
+			case0:
+				this.x_coord+=2;
+				break;
+			case1:
+				this.x_coord+=2;
+				this.y_coord-=2;
+				break;
+			case2:
+				this.y_coord-=2;
+				break;
+			case3:
+				this.x_coord-=2;
+				this.y_coord-=2;
+				break;
+			case4:
+				this.x_coord-=2;
+				break;
+			case5:
+				this.x_coord-=2;
+				this.y_coord+=2;
+				break;
+			case6:
+				this.y_coord+=2;
+				break;
+			case7:
+				this.x_coord+=2;
+				this.y_coord+=2;
+				break;
+		}
+
+		this.x_coord = Math.floorMod(this.x_coord, Params.world_width);
+		this.y_coord = Math.floorMod(this.y_coord, Params.word_height);
+		this.hasMoved = true;
+
+	}
+
 	
-	protected final void run(int direction) {}
+	private final int up1(int y_coord){
+		if(y_coord == 0 ){
+			y_coord = Params.world_height - 1;
+			return y_coord;
+		}
+		else{
+			y_coord -= 1;
+			return y_coord;
+		}
+	}
 	
-	protected final void reproduce(Critter offspring, int direction) {}
+	private final int down1(int y_coord){
+		if(y_coord == Params.world_height - 1){
+			y_coord = 0;
+			return y_coord;
+		}
+		else{
+			y_coord += 1;
+			return y_coord;
+		}
+	}
+	
+	private final int left1(int x_coord){
+		if(x_coord == 0){
+			x_coord = Params.world_width - 1;
+			return x_coord;
+		}
+		else{
+			x_coord -= 1;
+			return x_coord;
+		}
+	}
+	
+	private final int right1(int x_coord){
+		if(x_coord == Params.world_width - 1){
+			x_coord = 0;
+			return x_coord;
+		}
+		else{
+			x_coord += 1;
+			return x_coord;
+		}
+	}
+	
+	private final int up2(int y_coord){
+		if(y_coord == 0 ){
+			y_coord = Params.world_height - 2;
+			return y_coord;
+		}
+		else if(y_coord == 1){
+			y_coord = Params.world_height - 1;
+			return y_coord;
+		}
+		else{
+			y_coord -= 2;
+			return y_coord;
+		}
+	}
+	
+	private final int down2(int y_coord){
+		if(y_coord == Params.world_height - 1){
+			y_coord = 1;
+			return y_coord;
+		}
+		else if(y_coord == Params.world_height - 2){
+			y_coord = 0;
+			return y_coord;
+		}
+		else{
+			y_coord += 2;
+			return y_coord;
+		}
+	}
+	
+	private final int left2(int x_coord){
+		if(x_coord == 0){
+			x_coord = Params.world_width - 2;
+			return x_coord;
+		}
+		else if(x_coord == 1){
+			x_coord = Params.world_width - 1;
+			return x_coord;
+		}
+		else{
+			x_coord -= 2;
+			return x_coord;
+		}
+	}
+	
+	private final int right2(int x_coord){
+		if(x_coord == Params.world_width - 1){
+			x_coord = 1;
+			return x_coord;
+		}
+		else if(x_coord == Params.world_width - 2){
+			x_coord = 0;
+			return x_coord;
+		}
+		else{
+			x_coord += 2;
+			return x_coord;
+		}
+	}
+	
+	
+	/**
+	 * creates an offspring adjacent to the parent
+	 * @param offspring creates new offspring with half the energy of the parent 
+	 * @param direction indicates position adjacent to parent that offspring are born into
+	 * makes use of walk helper functions to choose location of birth
+	 */String[][] world
+	protected final void reproduce(Critter offspring, int direction) {
+		if(this.energy <= Params.min_reproduce_energy){
+			return;
+		}
+		
+		offspring.energy = this.energy/2;
+		babies.add(offspring);
+		int rounded = this.energy/2;
+		this.energy = (int) Math.ceil(rounded);
+
+		if(direction == 0){
+			offspring.x_coord = right1(this.x_coord);
+		}
+		else if(direction == 1){
+			offspring.x_coord = right1(this.x_coord);
+			offspring.y_coord = up1(this.y_coord);
+		}
+		else if(direction == 2){
+			offspring.y_coord = up1(this.y_coord);
+		}
+		else if(direction == 3){
+			offspring.y_coord = up1(this.y_coord);
+			offspring.x_coord = left1(this.x_coord);
+		}
+		else if(direction == 4){
+			offspring.x_coord = left1(this.x_coord);
+		}
+		else if(direction == 5){
+			offspring.x_coord = left1(this.x_coord);
+			offspring.y_coord = down1(this.y_coord);
+		}
+		else if(direction == 6){
+			offspring.y_coord = down1(this.y_coord);
+		}
+		else if(direction == 7){
+			offspring.y_coord = down1(this.y_coord);
+			offspring.x_coord = right1(this.x_coord);
+		}
+	}
 
 	public abstract void doTimeStep();
 	public abstract boolean fight(String oponent);
 	
-	
-	public static void worldTimeStep() {}
-	
-	public static void displayWorld() {}
-	
-	/* create and initialize a Critter subclass
-	 * critter_class_name must be the name of a concrete subclass of Critter, if not
-	 * an InvalidCritterException must be thrown
+	/**
+	 * create and initialize a Critter subclass.
+	 * critter_class_name must be the unqualified name of a concrete subclass of Critter, if not,
+	 * an InvalidCritterException must be thrown.
+	 * (Java weirdness: Exception throwing does not work properly if the parameter has lower-case instead of
+	 * upper. For example, if craig is supplied instead of Craig, an error is thrown instead of
+	 * an Exception.)
+	 * @param critter_class_name
+	 * @throws InvalidCritterException
 	 */
-	public static void makeCritter(String critter_class_name) throws InvalidCritterException {}
-	
-	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
-		return null;
+	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
+		try {
+			Class clazz = Class.forName(myPackage + "." + critter_class_name);
+			Critter critter = (Critter)clazz.newInstance();
+			critter.x_coord = Critter.getRandomInt(Params.world_width);
+			critter.y_coord = Critter.getRandomInt(Params.world_height);
+			critter.isDead = false;
+			critter.energy = Params.start_energy;
+			population.add(critter);
+		} catch(ClassNotFoundException e1) {
+			throw new InvalidCritterException(critter_class_name);
+		} catch(InstantiationException e2) {
+			throw new InvalidCritterException(critter_class_name);
+	    } catch(IllegalAccessException e3) {
+	    	throw new InvalidCritterException(critter_class_name);
+	    }
 	}
 	
-	public static void runStats(List<Critter> critters) {}
+	/**
+	 * Gets a list of critters of a specific type.
+	 * @param critter_class_name What kind of Critter is to be listed.  Unqualified class name.
+	 * @return List of Critters.
+	 * @throws InvalidCritterException
+	 */
+	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
+		List<Critter> result = new java.util.ArrayList<Critter>();
+		for(Critter x : population)
+		{
+			if(x.getClass().getName().equals(myPackage + "." + critter_class_name))
+			{
+				result.add(x);
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * Prints out how many Critters of each type there are on the board.
+	 * @param critters List of Critters.
+	 */
+	public static void runStats(List<Critter> critters) {
+		System.out.print("" + critters.size() + " critters as follows -- ");
+		java.util.Map<String, Integer> critter_count = new java.util.HashMap<String, Integer>();
+		for (Critter crit : critters) {
+			String crit_string = crit.toString();
+			Integer old_count = critter_count.get(crit_string);
+			if (old_count == null) {
+				critter_count.put(crit_string,  1);
+			} else {
+				critter_count.put(crit_string, old_count.intValue() + 1);
+			}
+		}
+		String prefix = "";
+		for (String s : critter_count.keySet()) {
+			System.out.print(prefix + s + ":" + critter_count.get(s));
+			prefix = ", ";
+		}
+		System.out.println();		
+	}
 	
 	/* the TestCritter class allows some critters to "cheat". If you want to 
 	 * create tests of your Critter model, you can create subclasses of this class
 	 * and then use the setter functions contained here. 
 	 * 
-	 * NOTE: you must make sure thath the setter functions work with your implementation
+	 * NOTE: you must make sure that the setter functions work with your implementation
 	 * of Critter. That means, if you're recording the positions of your critters
 	 * using some sort of external grid or some other data structure in addition
 	 * to the x_coord and y_coord functions, then you MUST update these setter functions
-	 * so that they correctup update your grid/data structure.
+	 * so that they correctly update your grid/data structure.
 	 */
 	static abstract class TestCritter extends Critter {
 		protected void setEnergy(int new_energy_value) {
@@ -155,12 +497,204 @@ public abstract class Critter {
 			return babies;
 		}
 	}
-	
+
 	/**
 	 * Clear the world of all critters, dead and alive
 	 */
 	public static void clearWorld() {
+		babies.clear();
+		population.clear();
 	}
 	
 	
+	/**
+	 * Makes competing critters in the same location fight one another.
+	 * One critter will die will be removed from the board while the other
+	 * will gain half of that critter's energy.
+	 */
+	private static void fighting(){
+		for(Critter c : population){
+			ArrayList<Critter> fighter = new java.util.ArrayList<Critter>();
+			for(Critter dTemp : population)
+			{
+				if(dTemp != c)
+				{
+					if((c.x_coord == dTemp.x_coord) && (c.y_coord == dTemp.y_coord))
+					{
+						fighter.add(dTemp);
+					}
+				}
+			}
+
+			if(!fighter.isEmpty())
+			{
+				for(Critter d : fighter)
+				{
+					if((c.isDead == false) && (d.isDead == false))
+					{
+						boolean fightDC = d.fight(c.toString());
+						boolean fightCD = c.fight(d.toString());
+						//System.out.println(fighter + " " + c.x_coord + " " + c.y_coord + " " + d.x_coord + " " + d.y_coord);
+						//System.out.println(fightDC + " " + d.energy + " " + c.energy +" " + fightCD);
+						//System.out.println(c.isDead + " " + d.isDead);
+						//System.out.println(d + " " + d.energy);
+						//System.out.println(c + " " + c.energy);
+						if (fightDC || fightCD) 
+						{
+							//System.out.println("They are fighting");
+							if ((c.isDead == false) && (d.isDead == false) && (c.x_coord == d.x_coord) && (c.y_coord == d.y_coord)) 
+							{
+								//System.out.println("Still fighting");
+								int cRoll; 
+								int dRoll;
+
+								if (fightDC == true && d.energy > 0) 
+								{
+									dRoll = getRandomInt(d.energy);
+								} 
+								else 
+								{
+									dRoll = 0; 
+								}
+							
+								if (fightCD == true && c.energy > 0) 
+								{
+									cRoll = getRandomInt(c.energy);
+								} 
+								else 
+								{
+									cRoll = 0; 
+								}
+								//System.out.println("Both rolled");
+
+								if (dRoll >= cRoll) {
+									//System.out.println(d + " ate a " + c);
+									d.energy += (c.energy / 2);
+									c.energy = 0;
+									c.isDead = true;
+								}	 
+								else {	
+									//System.out.println(c + " ate a " + d);
+									c.energy += (d.energy / 2);
+									d.energy = 0;
+									d.isDead = true;
+								}
+							}
+						}	
+					}
+				}	
+			}
+		}	
+	}			
+
+	
+	/**
+	 * Simulates one step for every critter present. Includes updating energy, 
+	 * solving encounters, producing algae, reproducing, walking/running, and killing 
+	 * any creatures whose energy reaches 0.
+	 */
+	public static void worldTimeStep() {
+				
+		for(int i = 0; i < population.size(); i++) 
+		{
+			population.get(i).doTimeStep();
+			population.get(i).hasMoved = false;
+			if(population.get(i).energy <= 0) 
+			{
+				population.get(i).isDead = true;
+				population.remove(i);
+			} 
+			else 
+			{
+				population.get(i).isDead = false;				
+			}
+
+			population.get(i).energy -= Params.rest_energy_cost;			
+		}
+
+		fighting();
+			
+		//update rest energy cost
+		for (int i = 0; i < population.size(); i++) 
+		{
+			if(population.get(i).energy <= 0) 
+			{
+				population.get(i).isDead = true;		
+				population.remove(i);
+			} 
+			else 
+			{
+				population.get(i).isDead = false;
+			}
+		}
+			
+		for(int i = 0; i < Params.refresh_algae_count; i++)
+		{
+			try
+			{
+				Critter.makeCritter("Algae");
+			} 
+			catch(InvalidCritterException e) 
+			{
+				System.out.println(e.toString());
+			}
+		}
+			
+			//update babies
+		population.addAll(babies);
+		babies.clear();
+	}
+	
+	/**
+	 * Displays the board and updates the location of each Critter on the board.
+	 */
+	public static void displayWorld() {
+		
+		String[][] world = new String[Params.world_height + 2][Params.world_width + 2];
+		
+		
+		for(int i = 0; i < Params.world_height + 2; i++){
+			for(int j = 0; j < Params.world_width + 2; j++){
+				
+				//print corners
+				if(i == 0 && j == 0){
+					world[i][j] = "+";
+				}
+				else if (i == Params.world_height + 1 && j == 0){
+					world[i][j] = "+";
+				}
+				else if(i == 0 && j == Params.world_width + 1){
+					world[i][j] = "+\n";
+				}
+				else if (i == Params.world_height + 1 && j == Params.world_width + 1){
+					world[i][j] = "+\n";
+				}
+				//print dashes
+				else if(i == 0 || i == Params.world_height + 1){
+					world[i][j] = "-";
+				}
+				else if(j == 0){
+					world[i][j] = "|";
+				}
+				else if(j == Params.world_width + 1){
+					world[i][j] = "|\n";
+				}
+				else{
+					world[i][j] = " ";
+				}
+				
+			}
+		}
+		for (Critter c : population) {
+			world[c.y_coord + 1][c.x_coord + 1] = c.toString();
+		}
+		for(int i = 0; i < Params.world_height + 2; i++)
+		{
+			for(int j = 0; j < Params.world_width + 2; j++)
+			{
+				System.out.print(world[i][j]);
+			}
+		}
+		System.out.println();
+	}
 }
