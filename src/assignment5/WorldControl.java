@@ -194,9 +194,8 @@ public class WorldControl
 	
 	
 	public static void shapes(int x, int y, Critter c) {
-		GraphicsContext gc  = canvas.getGraphicsContext2D();
-		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		gc.setFill(Color.BLACK);
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
 		
 		if(c.viewShape() == Critter.CritterShape.SQUARE){
 			 gc.fillRect(x * (canvas.getWidth()/(Params.world_width * 2)), y * (canvas.getHeight()/(Params.world_height)), (canvas.getWidth()/(Params.world_width * 5)), (canvas.getHeight())/(Params.world_height * 3));
