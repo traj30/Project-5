@@ -12,6 +12,7 @@
  */
 package assignment5;
 
+import assignment5.Critter.CritterShape;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
@@ -216,21 +217,21 @@ public class WorldControl
 	}
 	
 	
-	public static void shapes(int x, int y, Critter c) {
+	public static void shapes(int x, int y, CritterShape c) {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
 		
-		if(c.viewShape() == Critter.CritterShape.SQUARE){
+		if(c == Critter.CritterShape.SQUARE){
 			 gc.fillRect(x * (canvas.getWidth()/(Params.world_width * 2)), y * (canvas.getHeight()/(Params.world_height)), (canvas.getWidth()/(Params.world_width * 5)), (canvas.getHeight())/(Params.world_height * 3));
 			 gc.strokeRect(x * (canvas.getWidth()/(Params.world_width * 2)), y * (canvas.getHeight()/(Params.world_height)), (canvas.getWidth()/(Params.world_width * 5)), (canvas.getHeight())/(Params.world_height * 3));
 		}
 		
-		else if(c.viewShape() == Critter.CritterShape.CIRCLE){
+		else if(c == Critter.CritterShape.CIRCLE){
 			 gc.fillOval(x * (canvas.getWidth()/(Params.world_width * 2)), y * (canvas.getHeight()/(Params.world_height)), (canvas.getWidth()/(Params.world_width * 5)), (canvas.getHeight())/(Params.world_height * 3));
 			 gc.strokeOval(x * (canvas.getWidth()/(Params.world_width * 2)), y * (canvas.getHeight()/(Params.world_height)), (canvas.getWidth()/(Params.world_width * 5)), (canvas.getHeight())/(Params.world_height * 3));
 			 }
 		
-		else if(c.viewShape() == Critter.CritterShape.TRIANGLE){
+		else if(c == Critter.CritterShape.TRIANGLE){
 			double y_coor = y * (canvas.getHeight()/(Params.world_height));
 			double x_coor = x * (canvas.getWidth()/(Params.world_width * 2));
 			double w = (canvas.getWidth()/(Params.world_width * 2));
@@ -240,7 +241,7 @@ public class WorldControl
 			gc.fillPolygon(x_coords, y_coords, 3);
 			gc.strokePolygon(x_coords, y_coords, 3);
 		}
-		else if(c.viewShape() == Critter.CritterShape.DIAMOND){
+		else if(c == Critter.CritterShape.DIAMOND){
 			double y_coor = y * (canvas.getHeight()/(Params.world_height));
 			double x_coor = x * (canvas.getWidth()/(Params.world_width * 2));
 			double w = (canvas.getWidth()/(Params.world_width * 2));
@@ -250,7 +251,7 @@ public class WorldControl
 			gc.fillPolygon(x_coords, y_coords, 4);
 			gc.strokePolygon(x_coords, y_coords, 4);
 		}
-		else if(c.viewShape() == Critter.CritterShape.STAR){
+		else if(c == Critter.CritterShape.STAR){
 			double y_coor = y * (canvas.getHeight()/(Params.world_height));
 			double x_coor = x * (canvas.getWidth()/(Params.world_width * 2));
 			double w = (canvas.getWidth()/(Params.world_width * 2));

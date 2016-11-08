@@ -1,4 +1,4 @@
-/* CRITTER Critter3.java
+/* CRITTERS GUI Critter3.java
  * EE422C Project 4 submission by
  * Replace <...> with your actual data.
  * Jake Klovenski
@@ -19,6 +19,7 @@
  */ 
 
 package assignment5;
+
 
 public class Critter4 extends Critter{
 
@@ -45,6 +46,22 @@ public class Critter4 extends Critter{
 		}
 	
 	}
+	
+	
+	@Override
+	public CritterShape viewShape() {
+		return CritterShape.CIRCLE;
+	}
+	
+	public javafx.scene.paint.Color viewOutlineColor() { 
+		return javafx.scene.paint.Color.BLACK; 
+	}
+	
+	public javafx.scene.paint.Color viewFillColor() { 
+		return javafx.scene.paint.Color.RED; 
+	}	
+	
+	
 }
 
 
