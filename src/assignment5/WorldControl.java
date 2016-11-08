@@ -228,8 +228,7 @@ public class WorldControl
 	
 	public static void shapes(int x, int y, CritterShape c, Color fillColor, Color outLineColor) {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-		gc.setFill(Color.BLACK);	
+		gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());	
 		gc.setFill(fillColor);
 		gc.setStroke(outLineColor);		
 		
