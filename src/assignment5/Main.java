@@ -13,23 +13,39 @@
 
 package assignment5;
 
+import java.net.URL;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+
 public class Main extends Application{
 
-	public static String gui = "DisplayWorldFX.fxml";
+	public static String gui = "/src/assignment5/DisplayWorldFX.fxml";
 	public static String stageName = "Critters";
 
 	public void start (Stage stage)
 	{
-		URL loc = getClass.getResource(gui);
+		URL loc = getClass().getResource(gui);
 		FXMLLoader loader = new FXMLLoader(loc);
-		CritterWorld cWorld = new CritterWorld();
-		loader.setController(cWorld);
-
-		Parent root = loader.load();
-		Scene scene = new Scene(root,1080,940);
-		stage.setTitle(stageName);
-		stage.setScene(scene);
-		stage.show();
+		WorldControl world = new WorldControl();
+		loader.setController(world);
+		try
+		{
+			Parent root = loader.load();
+			Scene scene = new Scene(root,1080,940);
+			stage.setTitle(stageName);
+			stage.setScene(scene);
+			stage.show();
+		}
+		catch(Exception e)
+		{
+			System.out.println("hello");
+			System.out.println(e);
+			System.out.println(loc);
+		}
 	}
 
 	public static void main(String[] args) {

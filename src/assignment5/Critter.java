@@ -14,6 +14,7 @@
 package assignment5;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public abstract class Critter {
 	/* NEW FOR PROJECT 5 */
@@ -137,38 +138,38 @@ public abstract class Critter {
 		}
 		switch(direction)
 		{
-			case0:
+			case 0:
 				this.x_coord+=1;
 				break;
-			case1:
+			case 1:
 				this.x_coord+=1;
 				this.y_coord-=1;
 				break;
-			case2:
+			case 2:
 				this.y_coord-=1;
 				break;
-			case3:
+			case 3:
 				this.x_coord-=1;
 				this.y_coord-=1;
 				break;
-			case4:
+			case 4:
 				this.x_coord-=1;
 				break;
-			case5:
+			case 5:
 				this.x_coord-=1;
 				this.y_coord+=1;
 				break;
-			case6:
+			case 6:
 				this.y_coord+=1;
 				break;
-			case7:
+			case 7:
 				this.x_coord+=1;
 				this.y_coord+=1;
 				break;
 		}
 
 		this.x_coord = Math.floorMod(this.x_coord, Params.world_width);
-		this.y_coord = Math.floorMod(this.y_coord, Params.word_height);
+		this.y_coord = Math.floorMod(this.y_coord, Params.world_height);
 		this.hasMoved = true;
 	}
 	/**
@@ -185,154 +186,48 @@ public abstract class Critter {
 		}
 		switch(direction)
 		{
-			case0:
+			case 0:
 				this.x_coord+=2;
 				break;
-			case1:
+			case 1:
 				this.x_coord+=2;
 				this.y_coord-=2;
 				break;
-			case2:
+			case 2:
 				this.y_coord-=2;
 				break;
-			case3:
+			case 3:
 				this.x_coord-=2;
 				this.y_coord-=2;
 				break;
-			case4:
+			case 4:
 				this.x_coord-=2;
 				break;
-			case5:
+			case 5:
 				this.x_coord-=2;
 				this.y_coord+=2;
 				break;
-			case6:
+			case 6:
 				this.y_coord+=2;
 				break;
-			case7:
+			case 7:
 				this.x_coord+=2;
 				this.y_coord+=2;
 				break;
 		}
 
 		this.x_coord = Math.floorMod(this.x_coord, Params.world_width);
-		this.y_coord = Math.floorMod(this.y_coord, Params.word_height);
+		this.y_coord = Math.floorMod(this.y_coord, Params.world_height);
 		this.hasMoved = true;
 
 	}
-
-	
-	private final int up1(int y_coord){
-		if(y_coord == 0 ){
-			y_coord = Params.world_height - 1;
-			return y_coord;
-		}
-		else{
-			y_coord -= 1;
-			return y_coord;
-		}
-	}
-	
-	private final int down1(int y_coord){
-		if(y_coord == Params.world_height - 1){
-			y_coord = 0;
-			return y_coord;
-		}
-		else{
-			y_coord += 1;
-			return y_coord;
-		}
-	}
-	
-	private final int left1(int x_coord){
-		if(x_coord == 0){
-			x_coord = Params.world_width - 1;
-			return x_coord;
-		}
-		else{
-			x_coord -= 1;
-			return x_coord;
-		}
-	}
-	
-	private final int right1(int x_coord){
-		if(x_coord == Params.world_width - 1){
-			x_coord = 0;
-			return x_coord;
-		}
-		else{
-			x_coord += 1;
-			return x_coord;
-		}
-	}
-	
-	private final int up2(int y_coord){
-		if(y_coord == 0 ){
-			y_coord = Params.world_height - 2;
-			return y_coord;
-		}
-		else if(y_coord == 1){
-			y_coord = Params.world_height - 1;
-			return y_coord;
-		}
-		else{
-			y_coord -= 2;
-			return y_coord;
-		}
-	}
-	
-	private final int down2(int y_coord){
-		if(y_coord == Params.world_height - 1){
-			y_coord = 1;
-			return y_coord;
-		}
-		else if(y_coord == Params.world_height - 2){
-			y_coord = 0;
-			return y_coord;
-		}
-		else{
-			y_coord += 2;
-			return y_coord;
-		}
-	}
-	
-	private final int left2(int x_coord){
-		if(x_coord == 0){
-			x_coord = Params.world_width - 2;
-			return x_coord;
-		}
-		else if(x_coord == 1){
-			x_coord = Params.world_width - 1;
-			return x_coord;
-		}
-		else{
-			x_coord -= 2;
-			return x_coord;
-		}
-	}
-	
-	private final int right2(int x_coord){
-		if(x_coord == Params.world_width - 1){
-			x_coord = 1;
-			return x_coord;
-		}
-		else if(x_coord == Params.world_width - 2){
-			x_coord = 0;
-			return x_coord;
-		}
-		else{
-			x_coord += 2;
-			return x_coord;
-		}
-	}
-	
 	
 	/**
 	 * creates an offspring adjacent to the parent
 	 * @param offspring creates new offspring with half the energy of the parent 
 	 * @param direction indicates position adjacent to parent that offspring are born into
 	 * makes use of walk helper functions to choose location of birth
-	 */String[][] world
+	 */
 	protected final void reproduce(Critter offspring, int direction) {
 		if(this.energy <= Params.min_reproduce_energy){
 			return;
@@ -343,34 +238,39 @@ public abstract class Critter {
 		int rounded = this.energy/2;
 		this.energy = (int) Math.ceil(rounded);
 
-		if(direction == 0){
-			offspring.x_coord = right1(this.x_coord);
+		switch(direction)
+		{
+			case 0:
+				offspring.x_coord = this.x_coord + 1;
+				break;
+			case 1:
+				offspring.x_coord = this.x_coord + 1;
+				offspring.y_coord = this.y_coord - 1;
+				break;
+			case 2:
+				offspring.y_coord = this.y_coord - 1;
+				break;
+			case 3:
+				offspring.x_coord = this.x_coord - 1;
+				offspring.y_coord = this.y_coord - 1;
+				break;
+			case 4:
+				offspring.x_coord = this.x_coord - 1;
+				break;
+			case 5:
+				offspring.x_coord = this.x_coord - 1;
+				offspring.y_coord = this.y_coord + 1;
+				break;
+			case 6:
+				offspring.y_coord = this.y_coord + 1;
+				break;
+			case 7:
+				offspring.x_coord = this.x_coord + 1;
+				offspring.y_coord = this.y_coord + 1;
+				break;
 		}
-		else if(direction == 1){
-			offspring.x_coord = right1(this.x_coord);
-			offspring.y_coord = up1(this.y_coord);
-		}
-		else if(direction == 2){
-			offspring.y_coord = up1(this.y_coord);
-		}
-		else if(direction == 3){
-			offspring.y_coord = up1(this.y_coord);
-			offspring.x_coord = left1(this.x_coord);
-		}
-		else if(direction == 4){
-			offspring.x_coord = left1(this.x_coord);
-		}
-		else if(direction == 5){
-			offspring.x_coord = left1(this.x_coord);
-			offspring.y_coord = down1(this.y_coord);
-		}
-		else if(direction == 6){
-			offspring.y_coord = down1(this.y_coord);
-		}
-		else if(direction == 7){
-			offspring.y_coord = down1(this.y_coord);
-			offspring.x_coord = right1(this.x_coord);
-		}
+		offspring.x_coord = Math.floorMod(offspring.x_coord, Params.world_width);
+		offspring.y_coord = Math.floorMod(offspring.y_coord, Params.world_height);
 	}
 
 	public abstract void doTimeStep();
