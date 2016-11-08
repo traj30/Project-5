@@ -12,6 +12,11 @@
  */
 package assignment5;
 
+import java.lang.reflect.Method;
+import java.util.List;
+
+import assignment5.Critter;
+import assignment5.InvalidCritterException;
 import assignment5.Critter.CritterShape;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -95,17 +100,17 @@ public class WorldControl
 	}
 
 	@FXML
+	private static String myPackage;	// package of Critter file.  Critter cannot be in default pkg.
+	
+    static {
+        myPackage = Critter.class.getPackage().toString().split(" ")[1];
+    }
+
 	public void stepButtonEvent(ActionEvent event)
 	{
 		int steps = 0;
-		try
-		{
-			steps = Integer.parseInt(stepsTextController.getText());
-		}
-		catch(IllegalArgumentException e)
-		{
-			System.out.println(e);
-		}
+
+		steps = Integer.parseInt(stepsTextController.getText());
 
 		for(int i = 0; i < steps; i++)
 		{
@@ -186,8 +191,38 @@ public class WorldControl
 	@FXML
 	public void statsButtonEvent(ActionEvent event)
 	{
-		//TODO add the stats stuff
-		
+		String type;
+		type = statsTextController.getText();
+		try
+		{
+			List<Critter> bugs = Critter.getInstances(type);
+			Class clazz = Class.forName(myPackage + "." + type);
+			Class<?>[] types = {List.class};
+			Method method = clazz.getMethod("runStats", types);
+			method.invoke(null, bugs);
+		}
+		catch(InvalidCritterException e1)
+		{
+			wrongInput(type);
+		}
+		catch(ArrayIndexOutOfBoundsException e2)
+		{
+			wrongInput(type);
+		}
+		catch(ClassNotFoundException e3)
+		{
+			wrongInput(type);
+		}
+		catch(Exception e4)
+		{
+			wrongInput(type);
+		}
+	}
+	
+	private static void wrongInput(String wrong)
+	{
+		System.out.print("error processing: ");
+		System.out.println(wrong);
 	}
 	@FXML
 	public void stopButtonEvent(ActionEvent event)
@@ -197,21 +232,23 @@ public class WorldControl
 
 	public void drawGraph()
 	{
-		System.out.println("`")
+		System.out.println("Drawing Grid");
 		GraphicsContext gc = canvasController.getGraphicsContext2D();
 		gc.setStroke(Color.BLACK);
-		gc.setLineWidth(2);
-		int spaceW = (int)canvasController.getWidth()/Params.world_width;
-		for(int i = 0; i < Params.world_width; i++)
+		gc.setLineWidth(1);
+		double spaceW = canvasController.getWidth()/Params.world_width;
+		double spaceH = (int)canvasController.getHeight()/Params.world_height;
+		System.out.println(canvasController.getWidth() + "/" + Params.world_width + "=" + spaceW);
+		for(int i = 0; i < Params.world_height * spaceH; i++)
 		{
 			gc.strokeLine(i*spaceW, 0, i*spaceW, canvasController.getHeight());
 		}
-		int spaceH = (int)canvasController.getHeight()/Params.world_height;
-		for(int i = 0; i < Params.world_height; i++)
+		for(int i = 0; i < Params.world_width * spaceW; i++)
 		{
 			gc.strokeLine(0,i*spaceH,canvasController.getWidth(),i*spaceH);
 		}
-2a	Q`1	}
+		System.out.println("Done with Grid");
+	}
 
 	public void clearGraphics()
 	{
@@ -227,11 +264,13 @@ public class WorldControl
 		System.exit(1);
 	}
 	
-	
-	public void shapes(int x, int y, CritterShape c) {
+	public void shapes(int x, int y, CritterShape c, Color fillColor, Color outLineColor) {
 		GraphicsContext gc = canvasController.getGraphicsContext2D();
-		gc.clearRect(0,0,canvasController.getWidth(),canvasController.getHeight());
-		
+		//gc.clearRect(0,0,canvasController.getWidth(),canvasController.getHeight());
+		gc.setFill(Color.BLACK);	
+		gc.setFill(fillColor);
+		gc.setStroke(outLineColor);		
+
 		if(c == Critter.CritterShape.SQUARE){
 			 gc.fillRect(x * (canvasController.getWidth()/(Params.world_width * 2)), y * (canvasController.getHeight()/(Params.world_height)), (canvasController.getWidth()/(Params.world_width * 5)), (canvasController.getHeight())/(Params.world_height * 3));
 			 gc.strokeRect(x * (canvasController.getWidth()/(Params.world_width * 2)), y * (canvasController.getHeight()/(Params.world_height)), (canvasController.getWidth()/(Params.world_width * 5)), (canvasController.getHeight())/(Params.world_height * 3));
