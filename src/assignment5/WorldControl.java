@@ -32,7 +32,7 @@ public class WorldControl
 	private HBox hBoxController;
 
 	@FXML
-	private Canvas canvas;
+	private static Canvas canvas;
 
 	@FXML
 	private Button stepButtonController;

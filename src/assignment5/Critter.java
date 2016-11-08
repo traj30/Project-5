@@ -550,7 +550,7 @@ public abstract class Critter {
 	 */
 	public static void displayWorld() 
 	{
-		WorldControl.clear();
+		WorldControl.clearGraphics();
 		WorldControl.drawGraph();
 		for(Critter c: population)
 		{
