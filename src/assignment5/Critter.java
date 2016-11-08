@@ -550,15 +550,12 @@ public abstract class Critter {
 	 */
 	public static void displayWorld() 
 	{
-<<<<<<< HEAD
-		//WorldControl.clear();
-=======
+
 		WorldControl.clearGraphics();
->>>>>>> a53e820586c2854d71ae9f3005e9d40244205617
 		WorldControl.drawGraph();
 		for(Critter c: population)
 		{
-			WorldControl.shapes(c.x_coord,c.y_coord, c);
+			WorldControl.shapes(c.x_coord,c.y_coord, c.viewShape());
 		}
 	}
 }

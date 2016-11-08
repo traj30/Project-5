@@ -1,4 +1,4 @@
-/* CRITTER Critter3.java
+/* CRITTERS GUI Critter3.java
  * EE422C Project 4 submission by
  * Replace <...> with your actual data.
  * Jake Klovenski
@@ -18,7 +18,7 @@
  * and runs upwards, otherwise it only walks upwards.
  */ 
 
-package assignment4;
+package assignment5;
 
 public class Critter3 extends Critter{
 
@@ -29,18 +29,40 @@ public class Critter3 extends Critter{
 
 	@Override
 	public boolean fight(String oponent) {
-		return true;	
+		return false;	//never fights
 	}
 	
 	@Override
 	public void doTimeStep() {
-		if(getEnergy() > 100){
-            run(2);
-		   	Critter3 child = new Critter3();
-	 	    reproduce(child, getRandomInt(7));		
+	
+		for(int i = 0; i < 8; i++){
+			if(getEnergy() > 100 && (this.look(i, true) == null)){
+	            run(2);
+			   	Critter3 child = new Critter3();
+		 	    reproduce(child, getRandomInt(7));
+			}
+			else if (this.look(i, false) == null){ 
+				walk(2); 
+			} 
+			
 		}
-		else{ walk(2); } 
+	
 	}
+	
+	@Override
+	public CritterShape viewShape() {
+		return CritterShape.STAR;
+	}
+	
+	public javafx.scene.paint.Color viewOutlineColor() { 
+		return javafx.scene.paint.Color.GREEN; 
+	}
+	
+	public javafx.scene.paint.Color viewFillColor() { 
+		return javafx.scene.paint.Color.BLUE; 
+	}	
+
+	
 }
 
 
