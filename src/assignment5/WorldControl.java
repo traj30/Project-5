@@ -31,7 +31,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-import java.io.Console;
+
 import java.io.PrintStream;
 
 public class WorldControl
