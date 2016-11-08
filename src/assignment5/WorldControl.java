@@ -12,6 +12,11 @@
  */
 package assignment5;
 
+import java.lang.reflect.Method;
+import java.util.List;
+
+import assignment5.Critter;
+import assignment5.InvalidCritterException;
 import assignment5.Critter.CritterShape;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -79,17 +84,11 @@ public class WorldControl
 	@FXML
 	private Slider animationSliderController;
 
-	@FXML
-	private Label statsLabel1Controller;
-
-	@FXML
-	private Label statsLabel2Controller;
-
-	@FXML
-	private Label statsLabel3Controller;
-
-	@FXML
-	private Label statsLabel4Controller;
+	private static String myPackage;	// package of Critter file.  Critter cannot be in default pkg.
+	
+    static {
+        myPackage = Critter.class.getPackage().toString().split(" ")[1];
+    }
 
 	public void stepButtonEvent(ActionEvent event)
 	{
@@ -159,7 +158,38 @@ public class WorldControl
 
 	public void statsButtonEvent(ActionEvent event)
 	{
-		//TODO add the stats stuff
+		String type;
+		type = statsTextController.getText();
+		try
+		{
+			List<Critter> bugs = Critter.getInstances(type);
+			Class clazz = Class.forName(myPackage + "." + type);
+			Class<?>[] types = {List.class};
+			Method method = clazz.getMethod("runStats", types);
+			method.invoke(null, bugs);
+		}
+		catch(InvalidCritterException e1)
+		{
+			wrongInput(type);
+		}
+		catch(ArrayIndexOutOfBoundsException e2)
+		{
+			wrongInput(type);
+		}
+		catch(ClassNotFoundException e3)
+		{
+			wrongInput(type);
+		}
+		catch(Exception e4)
+		{
+			wrongInput(type);
+		}
+	}
+	
+	private static void wrongInput(String wrong)
+	{
+		System.out.print("error processing: ");
+		System.out.println(wrong);
 	}
 
 	public void stopButtonEvent(ActionEvent event)
