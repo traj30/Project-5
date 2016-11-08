@@ -549,52 +549,8 @@ public abstract class Critter {
 	 * Displays the board and updates the location of each Critter on the board.
 	 */
 	public static void displayWorld() {
-		
-		String[][] world = new String[Params.world_height + 2][Params.world_width + 2];
-		
-		
-		for(int i = 0; i < Params.world_height + 2; i++){
-			for(int j = 0; j < Params.world_width + 2; j++){
-				
-				//print corners
-				if(i == 0 && j == 0){
-					world[i][j] = "+";
-				}
-				else if (i == Params.world_height + 1 && j == 0){
-					world[i][j] = "+";
-				}
-				else if(i == 0 && j == Params.world_width + 1){
-					world[i][j] = "+\n";
-				}
-				else if (i == Params.world_height + 1 && j == Params.world_width + 1){
-					world[i][j] = "+\n";
-				}
-				//print dashes
-				else if(i == 0 || i == Params.world_height + 1){
-					world[i][j] = "-";
-				}
-				else if(j == 0){
-					world[i][j] = "|";
-				}
-				else if(j == Params.world_width + 1){
-					world[i][j] = "|\n";
-				}
-				else{
-					world[i][j] = " ";
-				}
-				
-			}
+		for(Critter c : population){
+			WorldControl.shapes(c.x_coord,c.y_coord,c);
 		}
-		for (Critter c : population) {
-			world[c.y_coord + 1][c.x_coord + 1] = c.toString();
-		}
-		for(int i = 0; i < Params.world_height + 2; i++)
-		{
-			for(int j = 0; j < Params.world_width + 2; j++)
-			{
-				System.out.print(world[i][j]);
-			}
-		}
-		System.out.println();
 	}
 }
