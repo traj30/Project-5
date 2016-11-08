@@ -13,14 +13,10 @@
 package assignment5;
 
 import javafx.event.ActionEvent;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
-import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;  
+import javafx.scene.layout.HBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Slider;
@@ -142,6 +138,8 @@ public class WorldControl
 		stepButtonController.setDisable(true);
 		seedButtonController.setDisable(true);
 		makeButtonController.setDisable(true);
+		startButtonController.setDisable(true);
+		quitButtonController.setDisable(true);
 		while(animation)
 		{
 			for(int i = 0; i < count; i++)
@@ -153,6 +151,9 @@ public class WorldControl
 		stepButtonController.setDisable(false);
 		seedButtonController.setDisable(false);
 		makeButtonController.setDisable(false);
+		startButtonController.setDisable(false);
+		quitButtonController.setDisable(false);
+
 	}
 
 	public void statsButtonEvent(ActionEvent event)
@@ -165,7 +166,7 @@ public class WorldControl
 		animation = false;
 	}
 
-	public void drawGraph()
+	public static void drawGraph()
 	{
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.setStroke(Color.BLACK);
@@ -182,11 +183,12 @@ public class WorldControl
 		}
 	}
 
-	public void clearGraphics()
+	public static void clearGraphics()
 	{
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
 	}
+
 	public void quitButtonController(ActionEvent event)
 	{
 		System.exit(1);
