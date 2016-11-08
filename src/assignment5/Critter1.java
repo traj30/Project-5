@@ -11,7 +11,9 @@
  * Fall 2016
  */
 
-package assignment4;
+package assignment5;
+
+import javafx.scene.paint.Color;
 
 /** This Critter is only eats algae and will attempt to run if fighting occurs
  * It will only move if either faced with conflict or it gets hungry enough
@@ -60,5 +62,13 @@ public class Critter1 extends Critter {
 		return "1";
 	}
 
+	@Override
+	public CritterShape viewShape() {
+		return CritterShape.DIAMOND;
+	}
 
+	@Override
+	public Color viewColor() {
+		return Color.DARKORANGE;
+	}
 }
