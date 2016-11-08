@@ -14,6 +14,9 @@
 package assignment5;
 
 import java.util.List;
+
+import javafx.scene.paint.Color;
+
 import java.util.ArrayList;
 
 public abstract class Critter {
@@ -552,9 +555,14 @@ public abstract class Critter {
 	{
 		WorldControl.clearGraphics();
 		WorldControl.drawGraph();
+		
 		for(Critter c: population)
 		{
-			WorldControl.shapes(c.x_coord,c.y_coord, c.viewShape());
+			
+			Color fill = c.viewFillColor();
+			Color outline = c.viewOutlineColor();
+			
+			WorldControl.shapes(c.x_coord,c.y_coord, c.viewShape(), fill, outline);
 		}
 	}
 }
