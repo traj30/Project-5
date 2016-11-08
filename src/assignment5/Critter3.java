@@ -18,7 +18,7 @@
  * and runs upwards, otherwise it only walks upwards.
  */ 
 
-package assignment4;
+package assignment5;
 
 public class Critter3 extends Critter{
 

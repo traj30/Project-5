@@ -18,7 +18,7 @@
  * offspring is spawned at a location adjacent to the parent at a location above the parent.
  */ 
 
-package assignment4;
+package assignment5;
 
 public class Critter4 extends Critter{
 

@@ -93,8 +93,14 @@ public class WorldControl
 	public void stepButtonEvent(ActionEvent event)
 	{
 		int steps = 0;
-
-		steps = Integer.parseInt(stepsTextController.getText());
+		try
+		{
+			steps = Integer.parseInt(stepsTextController.getText());
+		}
+		catch(IllegalArgumentException e)
+		{
+			System.out.println(e);
+		}
 
 		for(int i = 0; i < steps; i++)
 		{
@@ -106,9 +112,16 @@ public class WorldControl
 	public void makeButtonEvent(ActionEvent event)
 	{
 		int count = 0;
-		String type;
-		count = Integer.parseInt(makeTextController.getText());
-		type = makeChoiceController.getText();
+		String type = "";
+		try
+		{
+			count = Integer.parseInt(stepsTextController.getText());
+			type = makeChoiceController.getText();
+		}
+		catch(IllegalArgumentException e)
+		{
+			System.out.println(e);
+		}
 		try
 		{
 			for(int i = 0; i < count; i++)
@@ -125,7 +138,14 @@ public class WorldControl
 	public void seedButtonEvent(ActionEvent event)
 	{
 		int seedValue = 0;
-		seedValue = Integer.parseInt(seedTextController.getText());
+		try
+		{
+			seedValue = Integer.parseInt(stepsTextController.getText());
+		}
+		catch(IllegalArgumentException e)
+		{
+			System.out.println(e);
+		}
 		Critter.setSeed(seedValue);
 	}
 
@@ -159,6 +179,7 @@ public class WorldControl
 	public void statsButtonEvent(ActionEvent event)
 	{
 		//TODO add the stats stuff
+		
 	}
 
 	public void stopButtonEvent(ActionEvent event)
