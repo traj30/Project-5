@@ -9,7 +9,7 @@
 
 <BorderPane fx:id="borderPaneController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="497.0" prefWidth="697.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <Canvas fx:id="canvasController" height="200.0" width="200.0" BorderPane.alignment="CENTER" />
+      <Canvas fx:id="canvasController" height="900.0" width="900.0" BorderPane.alignment="CENTER" />
    </center>
    <left>
       <GridPane fx:id="gridPaneController" prefHeight="397.0" prefWidth="318.0" BorderPane.alignment="CENTER">

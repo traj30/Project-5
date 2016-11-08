@@ -551,18 +551,13 @@ public abstract class Critter {
 	/**
 	 * Displays the board and updates the location of each Critter on the board.
 	 */
-	public static void displayWorld()
+	public static void displayWorld(WorldControl world)
 	{
-		WorldControl.clearGraphics();
-		WorldControl.drawGraph();
-		
+		world.clearGraphics();
+		world.drawGraph();
 		for(Critter c: population)
 		{
-			
-			Color fill = c.viewFillColor();
-			Color outline = c.viewOutlineColor();
-			
-			WorldControl.shapes(c.x_coord,c.y_coord, c.viewShape(), fill, outline);
+			world.shapes(c.x_coord,c.y_coord, c.viewShape(),c.viewFillColor(),c.viewOutlineColor());
 		}
 	}
 }
