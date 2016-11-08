@@ -1,4 +1,15 @@
-import 
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.scene.layout.GridPane;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Slider;
+import javafx.scene.control.Label;
 
 public class WorldControl
 {
@@ -21,6 +32,9 @@ public class WorldControl
 	private Button makeButtonController;
 
 	@FXML
+	private Button statsButtonController;
+
+	@FXML
 	private Button startButtonController;
 
 	@FXML
@@ -39,7 +53,10 @@ public class WorldControl
 	private TextField makeTextController;
 
 	@FXML
-	private ChoiceBox makeChoiceController;
+	private TextField  makeChoiceController;
+
+	@FXML
+	private TextField statsTextController;
 
 	@FXML
 	private Slider animationSliderController;
@@ -87,8 +104,8 @@ public class WorldControl
 		seedValue = Integer.parseInt(seedTextController.getText());
 		Critter.setSeed(seedValue);
 	}
-	private boolean animation = false;
 
+	private boolean animation = false;
 	private void startButtonEvent(ActionEvent event)
 	{
 		double count = 0;
@@ -108,6 +125,11 @@ public class WorldControl
 		stepButtonController.setDisable(false);
 		seedButtonController.setDisable(false);
 		makeButtonController.setDisable(false);
+	}
+
+	private void statsButtonEvent(ActionEvent event)
+	{
+		//TODO add the stats stuff
 	}
 
 	private void stopButtonEvent(ActionEvent event)
