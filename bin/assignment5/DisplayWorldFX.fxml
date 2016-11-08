@@ -29,18 +29,18 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="stepButtonController" mnemonicParsing="false" text="Step" GridPane.columnIndex="1" />
-            <Button fx:id="quitButtonController" mnemonicParsing="false" text="Quit" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Button fx:id="stepButtonController" mnemonicParsing="false" onAction="#stepButtonEvent" text="Step" GridPane.columnIndex="1" />
+            <Button fx:id="quitButtonController" mnemonicParsing="false" onAction="#quitButtonController" text="Quit" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <TextField fx:id="stepsTextController" promptText="enter number of steps" GridPane.columnIndex="2" />
             <TextField fx:id="seedTextController" promptText="enter seed number" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button fx:id="seedButtonController" mnemonicParsing="false" text="Set Seed" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="makeButtonController" mnemonicParsing="false" text="Make New Critter " GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="seedButtonController" mnemonicParsing="false" onAction="#seedButtonEvent" text="Set Seed" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="makeButtonController" mnemonicParsing="false" onAction="#makeButtonEvent" text="Make New Critter " GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="makeTextController" promptText="enter number of critters" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Button fx:id="startButtonController" mnemonicParsing="false" text="Start Animation" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Button fx:id="stopButtonController" mnemonicParsing="false" text="Stop Animation" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Button fx:id="startButtonController" mnemonicParsing="false" onAction="#startButtonEvent" text="Start Animation" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Button fx:id="stopButtonController" mnemonicParsing="false" onAction="#stopButtonEvent" text="Stop Animation" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Slider fx:id="animationSliderController" showTickLabels="true" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <TextField fx:id="makeChoiceController" promptText="enter class of critter" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Button fx:id="statsButtonController" mnemonicParsing="false" text="Run Stats" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Button fx:id="statsButtonController" mnemonicParsing="false" onAction="#statsButtonEvent" text="Run Stats" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="statsTextController" promptText="enter critter type" GridPane.columnIndex="2" GridPane.rowIndex="6" />
          </children>
       </GridPane>
