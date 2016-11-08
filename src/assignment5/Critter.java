@@ -548,8 +548,7 @@ public abstract class Critter {
 	/**
 	 * Displays the board and updates the location of each Critter on the board.
 	 */
-
-	public static void displayWorld() 
+	public static void displayWorld()
 	{
 		WorldControl.clearGraphics();
 		WorldControl.drawGraph();
