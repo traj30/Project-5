@@ -13,6 +13,9 @@
 
 package assignment5;
 
+
+import javafx.scene.paint.Color;
+
 /*
  * Purely Carnivourous critter that will walk around in a counter-clockwise circle
  * Is not canabalistic
@@ -51,5 +54,13 @@ public class Critter2 extends Critter {
 		return "2";
 	}
 
+	@Override
+	public CritterShape viewShape() {
+		return CritterShape.CIRCLE;
+	}
 
+	@Override
+	public Color viewFillColor() {
+		return Color.VIOLET;
+	}
 }
