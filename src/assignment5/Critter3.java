@@ -13,9 +13,10 @@
 
 //Made by Tiraj Parikh
 
-/* Critter3  partakes in fighting, and moves only upward.
- * If its energy is greater than 100, Critter3 reproduces 
- * and runs upwards, otherwise it only walks upwards.
+/* Critter3 is scared of fighting, and avoids fighting in every situation possible.
+ * If its energy is greater than 100, and there is not another Critter in that location,
+ * Critter3 reproduces and runs in that direction, otherwise it only walks in that direction.
+ * Critter3 is a blue star outlined in green.
  */ 
 
 package assignment5;
@@ -29,7 +30,7 @@ public class Critter3 extends Critter{
 
 	@Override
 	public boolean fight(String oponent) {
-		return false;	//never fights
+		return false;	
 	}
 	
 	@Override
@@ -37,12 +38,12 @@ public class Critter3 extends Critter{
 	
 		for(int i = 0; i < 8; i++){
 			if(getEnergy() > 100 && (this.look(i, true) == null)){
-	            run(2);
+	            run(i);
 			   	Critter3 child = new Critter3();
 		 	    reproduce(child, getRandomInt(7));
 			}
 			else if (this.look(i, false) == null){ 
-				walk(2); 
+				walk(i); 
 			} 
 			
 		}

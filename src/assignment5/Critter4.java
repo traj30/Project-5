@@ -13,14 +13,13 @@
 
 //Made by Tiraj Parikh
 
-/* Critter4 partakes in fighting only if its energy is greater than 80. It walks in 
- * a random direction, and if its energy is greater than 120, it reproduces. The 
- * offspring is spawned at a location adjacent to the parent at a location above the parent.
+/* Critter4 is a reasonable fighter. It partakes in fighting only if its energy is greater than 80,
+ * and if it is not surrounded by another Critter. It walks in a random direction, and if its 
+ * energy is greater than 120, it reproduces. The offspring is spawned at a location adjacent to 
+ * the parent at a location above the parent. Critter3 is a red circle outlined in black.
  */ 
 
 package assignment5;
-
-import assignment5.Critter.CritterShape;
 
 public class Critter4 extends Critter{
 
@@ -31,11 +30,21 @@ public class Critter4 extends Critter{
 
 	@Override
 	public boolean fight(String oponent) {
-		if (getEnergy() > 80) {
+		int count = 0;
+		for(int i = 0; i < 8; i++){
+			if (this.look(i, false) != null) {
+				count++;
+			}
+		}
+		
+		if (getEnergy() > 80 && count == 0){
 			return true;
 		}
-		else { return false; }
+		else{
+			return false;
+		}
 	}
+		
 	
 	@Override
 	public void doTimeStep() {
