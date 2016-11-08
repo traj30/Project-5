@@ -46,25 +46,6 @@
       </GridPane>
    </left>
    <bottom>
-      <VBox prefHeight="84.0" prefWidth="697.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox prefHeight="60.0" prefWidth="697.0">
-               <children>
-                  <Label text="The total number of " />
-                  <Label fx:id="statsCritterLabelController" text="Label" />
-                  <Label text=" critters is " />
-                  <Label fx:id="statsNumberLabelController" text="Label" />
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="Label" />
-                  <Label text="Label" />
-                  <Label text="Label" />
-                  <Label text="Label" />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
+      <TextArea fx:id="statsTextAreaController" prefHeight="129.0" prefWidth="697.0" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>

@@ -11,7 +11,7 @@
  * Fall 2016
  */
 
-package assignment4;
+package assignment5;
 
 /*
  * Purely Carnivourous critter that will walk around in a counter-clockwise circle

@@ -11,7 +11,7 @@
  * Fall 2016
  */
 
-package assignment4;
+package assignment5;
 
 /** This Critter is only eats algae and will attempt to run if fighting occurs
  * It will only move if either faced with conflict or it gets hungry enough
