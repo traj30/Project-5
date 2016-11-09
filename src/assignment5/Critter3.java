@@ -56,11 +56,11 @@ public class Critter3 extends Critter{
 	}
 	
 	public javafx.scene.paint.Color viewOutlineColor() { 
-		return javafx.scene.paint.Color.GREEN; 
+		return javafx.scene.paint.Color.BLUE; 
 	}
 	
 	public javafx.scene.paint.Color viewFillColor() { 
-		return javafx.scene.paint.Color.BLUE; 
+		return javafx.scene.paint.Color.YELLOW; 
 	}	
 
 	
