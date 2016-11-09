@@ -88,15 +88,16 @@ public class WorldControl {
 	@FXML
 	private TextArea statsTextAreaController;
 	private PrintStream ps;
+	private String statsString = "Algae";
 
 	public void initialize() {
 		Console console = new Console(statsTextAreaController);
 		ps = new PrintStream(console);
 		System.setOut(ps);
 		System.setErr(ps);
+		Critter.displayWorld(this);
 	}
 
-	@FXML
 	private static String myPackage;    // package of Critter file.  Critter cannot be in default pkg.
 
 	static {
@@ -105,14 +106,19 @@ public class WorldControl {
 
 	public void stepButtonEvent(ActionEvent event) {
 		int steps = 0;
-
-		steps = Integer.parseInt(stepsTextController.getText());
-
+		try{
+			steps = Integer.parseInt(stepsTextController.getText());
+		}
+		catch(Exception e)
+		{
+			steps = 1;
+		}
 		for (int i = 0; i < steps; i++) {
 			Critter.worldTimeStep();
 		}
 		Critter.displayWorld(this);
-		System.out.println(steps +" counts");
+		System.out.println(steps +" steps");
+		statsPlease();
 	}
 
 	@FXML
@@ -132,7 +138,9 @@ public class WorldControl {
 		} catch (InvalidCritterException e) {
 			System.out.println(e);
 		}
+		Critter.displayWorld(this);
 		System.out.println("" + count + " " + type + " made");
+		statsPlease();
 	}
 
 	@FXML
@@ -183,6 +191,28 @@ public class WorldControl {
 			Class<?>[] types = {List.class};
 			Method method = clazz.getMethod("runStats", types);
 			method.invoke(null, bugs);
+			statsString = type;
+		} catch (InvalidCritterException e1) {
+			wrongInput(type);
+		} catch (ArrayIndexOutOfBoundsException e2) {
+			wrongInput(type);
+		} catch (ClassNotFoundException e3) {
+			wrongInput(type);
+		} catch (Exception e4) {
+			wrongInput(type);
+		}
+	}
+
+	private void statsPlease()
+	{
+		String type = statsString;
+		try {
+			List<Critter> bugs = Critter.getInstances(type);
+			Class clazz = Class.forName(myPackage + "." + type);
+			Class<?>[] types = {List.class};
+			Method method = clazz.getMethod("runStats", types);
+			method.invoke(null, bugs);
+			statsString = type;
 		} catch (InvalidCritterException e1) {
 			wrongInput(type);
 		} catch (ArrayIndexOutOfBoundsException e2) {
@@ -210,7 +240,6 @@ public class WorldControl {
 		gc.setLineWidth(1);
 		double spaceW = canvasController.getWidth() / Params.world_width;
 		double spaceH = (int) canvasController.getHeight() / Params.world_height;
-		System.out.println(canvasController.getWidth() + "/" + Params.world_width + "=" + spaceW);
 		for (int i = 0; i < Params.world_height * spaceH; i++) {
 			gc.strokeLine(i * spaceW, 0, i * spaceW, canvasController.getHeight());
 		}
