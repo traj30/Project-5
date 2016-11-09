@@ -112,6 +112,7 @@ public class WorldControl {
 			Critter.worldTimeStep();
 		}
 		Critter.displayWorld(this);
+		System.out.println(steps +" counts");
 	}
 
 	@FXML
@@ -131,6 +132,7 @@ public class WorldControl {
 		} catch (InvalidCritterException e) {
 			System.out.println(e);
 		}
+		System.out.println("" + count + " " + type + " made");
 	}
 
 	@FXML
@@ -142,6 +144,7 @@ public class WorldControl {
 			System.out.println(e);
 		}
 		Critter.setSeed(seedValue);
+		System.out.println("Changing the seed to " + seedValue);
 	}
 
 	public boolean animation = false;
@@ -202,7 +205,6 @@ public class WorldControl {
 	}
 
 	public void drawGraph() {
-		System.out.println("Drawing Grid");
 		GraphicsContext gc = canvasController.getGraphicsContext2D();
 		gc.setStroke(Color.BLACK);
 		gc.setLineWidth(1);
@@ -215,14 +217,11 @@ public class WorldControl {
 		for (int i = 0; i < Params.world_width * spaceW; i++) {
 			gc.strokeLine(0, i * spaceH, canvasController.getWidth(), i * spaceH);
 		}
-		System.out.println("Done with Grid");
 	}
 
 	public void clearGraphics() {
-		System.out.println("Clearing");
 		GraphicsContext gc = canvasController.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvasController.getWidth(), canvasController.getHeight());
-		System.out.println("Done Clearing");
 	}
 
 	@FXML
@@ -293,22 +292,22 @@ public class WorldControl {
 				gc.strokeOval(x*col_width + col_width*.25, y*row_height + row_height*.25,col_width*.5,col_width*.5);
 				break;
 			case TRIANGLE:
-				double[] x_coords1 = {x*col_width + cOffSet/2,x*cOffSet + cOffSet/2, x*cOffSet - cOffSet/2 };
-				double[] y_coords1 = {y*row_height - rOffSet/2,y*row_height + rOffSet/2, y*row_height + rOffSet/2};
+				double[] x_coords1 = {x*col_width + cOffSet/2,x*col_width + cOffSet, x*col_width + 3*cOffSet/2 };
+				double[] y_coords1 = {y*row_height + 3*rOffSet/2,y*row_height + rOffSet/2, y*row_height + 3*rOffSet/2};
 				gc.fillPolygon(x_coords1,y_coords1,3);
 				gc.strokePolygon(x_coords1,y_coords1,3);
 				break;
 			case DIAMOND:
-				double[] x_coords2 = {x*col_width + cOffSet/2, x*col_width + cOffSet, x*col_width + cOffSet, x*col_width + 3*cOffSet/2};
-				double[] y_coords2 = {y*row_height + rOffSet, y*row_height + rOffSet/2, y*row_height + 3*rOffSet/2, y*row_height + rOffSet/2};
+				double[] x_coords2 = {x*col_width + cOffSet/2, x*col_width + cOffSet, x*col_width + 3*cOffSet/2, x*col_width + cOffSet};
+				double[] y_coords2 = {y*row_height + rOffSet, y*row_height + rOffSet/2, y*row_height + rOffSet, y*row_height + 3*rOffSet/2};
 				gc.fillPolygon(x_coords2,y_coords2,4);
 				gc.strokePolygon(x_coords2,y_coords2,4);
 				break;
 			case STAR:
-				double[] x_coords3 = {x*col_width + cOffSet,x*cOffSet + cOffSet/2, x*cOffSet - cOffSet/2};
-				double[] y_coords3 = {y*row_height - rOffSet,y*row_height + rOffSet/2, y*row_height + rOffSet/2};
-				double[] x_coords4 = {x*col_width + cOffSet/2,x*cOffSet + cOffSet/2, x*cOffSet - cOffSet/2};
-				double[] y_coords4 = {y*row_height - rOffSet/2,y*row_height - rOffSet/2, y*row_height + rOffSet/2};
+				double[] x_coords3 = {x*col_width + cOffSet/2,x*col_width + cOffSet, x*col_width + 3*cOffSet/2};
+				double[] y_coords3 = {y*row_height + 4*rOffSet/3,y*row_height + rOffSet/2, y*row_height + 4*rOffSet/3};
+				double[] x_coords4 = {x*col_width + cOffSet/2,x*col_width + cOffSet, x*col_width + 3*cOffSet/2};
+				double[] y_coords4 = {y*row_height + 2*rOffSet/3,y*row_height + 3*rOffSet/2, y*row_height + 2*rOffSet/3};
 				gc.strokePolygon(x_coords3,y_coords3,3);
 				gc.strokePolygon(x_coords4,y_coords4,3);
 				gc.fillPolygon(x_coords3,y_coords3,3);
