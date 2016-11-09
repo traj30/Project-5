@@ -60,7 +60,7 @@ public class Critter4 extends Critter{
 	
 	@Override
 	public CritterShape viewShape() {
-		return CritterShape.CIRCLE;
+		return CritterShape.TRIANGLE;
 	}
 	
 	public javafx.scene.paint.Color viewOutlineColor() { 
