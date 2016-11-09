@@ -22,7 +22,8 @@ import javafx.scene.Scene;
 
 public class Main extends Application{
 
-	public static String gui = "DisplayWorldFX.fxml";
+	public static String gui = "/src/assignment5/DisplayWorldFX.fxml";
+
 	public static String stageName = "Critters";
 
 	public void start (Stage stage)
