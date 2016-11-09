@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.control.*?>
@@ -50,6 +51,9 @@
             <Button fx:id="statsButtonController" mnemonicParsing="false" onAction="#statsButtonEvent" text="Run Stats" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="statsTextController" promptText="enter critter type" GridPane.columnIndex="2" GridPane.rowIndex="6" />
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </GridPane>
    </left>
    <bottom>
