@@ -293,22 +293,22 @@ public class WorldControl {
 				gc.strokeOval(x*col_width + col_width*.25, y*row_height + row_height*.25,col_width*.5,col_width*.5);
 				break;
 			case TRIANGLE:
-				double[] x_coords1 = {x*col_width + cOffSet/2,x*cOffSet + cOffSet/2, x*cOffSet - cOffSet/2 };
-				double[] y_coords1 = {y*row_height - rOffSet/2,y*row_height + rOffSet/2, y*row_height + rOffSet/2};
+				double[] x_coords1 = {x*col_width + cOffSet/2,x*col_width + cOffSet, x*col_width + 3*cOffSet/2 };
+				double[] y_coords1 = {y*row_height + 3*rOffSet/2,y*row_height + rOffSet/2, y*row_height + 3*rOffSet/2};
 				gc.fillPolygon(x_coords1,y_coords1,3);
 				gc.strokePolygon(x_coords1,y_coords1,3);
 				break;
 			case DIAMOND:
-				double[] x_coords2 = {x*col_width + cOffSet/2, x*col_width + cOffSet, x*col_width + cOffSet, x*col_width + 3*cOffSet/2};
-				double[] y_coords2 = {y*row_height + rOffSet, y*row_height + rOffSet/2, y*row_height + 3*rOffSet/2, y*row_height + rOffSet/2};
+				double[] x_coords2 = {x*col_width + cOffSet/2, x*col_width + cOffSet, x*col_width + 3*cOffSet/2, x*col_width + cOffSet};
+				double[] y_coords2 = {y*row_height + rOffSet, y*row_height + rOffSet/2, y*row_height + rOffSet, y*row_height + 3*rOffSet/2};
 				gc.fillPolygon(x_coords2,y_coords2,4);
 				gc.strokePolygon(x_coords2,y_coords2,4);
 				break;
 			case STAR:
-				double[] x_coords3 = {x*col_width + cOffSet,x*cOffSet + cOffSet/2, x*cOffSet - cOffSet/2};
-				double[] y_coords3 = {y*row_height - rOffSet,y*row_height + rOffSet/2, y*row_height + rOffSet/2};
-				double[] x_coords4 = {x*col_width + cOffSet/2,x*cOffSet + cOffSet/2, x*cOffSet - cOffSet/2};
-				double[] y_coords4 = {y*row_height - rOffSet/2,y*row_height - rOffSet/2, y*row_height + rOffSet/2};
+				double[] x_coords3 = {x*col_width + cOffSet/2,x*col_width + cOffSet, x*col_width + 3*cOffSet/2};
+				double[] y_coords3 = {y*row_height + 4*rOffSet/3,y*row_height + rOffSet/2, y*row_height + 4*rOffSet/3};
+				double[] x_coords4 = {x*col_width + cOffSet/2,x*col_width + cOffSet, x*col_width + 3*cOffSet/2};
+				double[] y_coords4 = {y*row_height + 2*rOffSet/3,y*row_height + 3*rOffSet/2, y*row_height + 2*rOffSet/3};
 				gc.strokePolygon(x_coords3,y_coords3,3);
 				gc.strokePolygon(x_coords4,y_coords4,3);
 				gc.fillPolygon(x_coords3,y_coords3,3);
