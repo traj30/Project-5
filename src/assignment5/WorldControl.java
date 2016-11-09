@@ -18,6 +18,7 @@ import java.util.List;
 import assignment5.Critter;
 import assignment5.InvalidCritterException;
 import assignment5.Critter.CritterShape;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
@@ -32,6 +33,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 import java.io.PrintStream;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class WorldControl {
 	@FXML
@@ -156,28 +159,41 @@ public class WorldControl {
 	}
 
 	public boolean animation = false;
-
+	Timer timer;
+	TimerTask task;
 	@FXML
 	public void startButtonEvent(ActionEvent event) {
-		double count = 0;
 		animation = true;
-		count = animationSliderController.getValue();
+		final double count = animationSliderController.getValue();
+		WorldControl world = this;
 		stepButtonController.setDisable(true);
 		seedButtonController.setDisable(true);
 		makeButtonController.setDisable(true);
 		startButtonController.setDisable(true);
 		quitButtonController.setDisable(true);
-		while (animation) {
-			for (int i = 0; i < count; i++) {
-				Critter.worldTimeStep();
-			}
-			Critter.displayWorld(this);
+		if(animation) {
+			task = new TimerTask() {
+				public void run() {
+					Platform.runLater(new Runnable() {
+						public void run()  {
+							clearGraphics();
+
+							Critter.worldTimeStep();
+
+							Critter.displayWorld(world);
+						}
+					});
+				}
+			};
+			timer.schedule(task,0,1000);
 		}
-		stepButtonController.setDisable(false);
-		seedButtonController.setDisable(false);
-		makeButtonController.setDisable(false);
-		startButtonController.setDisable(false);
-		quitButtonController.setDisable(false);
+		else {
+			stepButtonController.setDisable(false);
+			seedButtonController.setDisable(false);
+			makeButtonController.setDisable(false);
+			startButtonController.setDisable(false);
+			quitButtonController.setDisable(false);
+		}
 
 	}
 
@@ -232,6 +248,7 @@ public class WorldControl {
 	@FXML
 	public void stopButtonEvent(ActionEvent event) {
 		animation = false;
+		task.cancel();
 	}
 
 	public void drawGraph() {
