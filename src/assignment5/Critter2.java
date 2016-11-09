@@ -44,6 +44,12 @@ public class Critter2 extends Critter {
 	@Override
 	public void doTimeStep()
 	{
+		String next = look(dir,false);
+		if(next.equals("@") || next.equals("@") || next.equals(this.toString()))
+		{
+			dir += 3;
+			dir %= 8;
+		}
 		walk(dir);
 		dir += 7;
 		dir %= 8;

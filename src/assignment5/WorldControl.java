@@ -112,6 +112,7 @@ public class WorldControl {
 			Critter.worldTimeStep();
 		}
 		Critter.displayWorld(this);
+		System.out.println(steps +" counts");
 	}
 
 	@FXML
@@ -131,6 +132,7 @@ public class WorldControl {
 		} catch (InvalidCritterException e) {
 			System.out.println(e);
 		}
+		System.out.println("" + count + " " + type + " made");
 	}
 
 	@FXML
@@ -142,6 +144,7 @@ public class WorldControl {
 			System.out.println(e);
 		}
 		Critter.setSeed(seedValue);
+		System.out.println("Changing the seed to " + seedValue);
 	}
 
 	public boolean animation = false;
@@ -202,7 +205,6 @@ public class WorldControl {
 	}
 
 	public void drawGraph() {
-		System.out.println("Drawing Grid");
 		GraphicsContext gc = canvasController.getGraphicsContext2D();
 		gc.setStroke(Color.BLACK);
 		gc.setLineWidth(1);
@@ -215,14 +217,11 @@ public class WorldControl {
 		for (int i = 0; i < Params.world_width * spaceW; i++) {
 			gc.strokeLine(0, i * spaceH, canvasController.getWidth(), i * spaceH);
 		}
-		System.out.println("Done with Grid");
 	}
 
 	public void clearGraphics() {
-		System.out.println("Clearing");
 		GraphicsContext gc = canvasController.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvasController.getWidth(), canvasController.getHeight());
-		System.out.println("Done Clearing");
 	}
 
 	@FXML
